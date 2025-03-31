@@ -4,14 +4,15 @@ import copy
 
 class Enricher:
 
-    def __init__(self, fieldnames, source=sys.stdin, export=sys.stdout):
+    def __init__(self, fieldnames, source=sys.stdin, export=sys.stdout, auto_add_old_fields=True):
         self._new_columns = fieldnames
+        self._auto_add_old_fields = auto_add_old_fields
         self._source = open(source) if type(source) == str else source
         self._export = open(export) if type(source) == str else export
 
     def __enter__(self):
         self._reader = csv.DictReader(self._source)
-        self._fieldnames = self._reader.fieldnames + self._new_columns
+        self._fieldnames = (self._reader.fieldnames if self._auto_add_old_fields else []) + self._new_columns
         self._writer = csv.DictWriter(self._export, fieldnames=self._fieldnames)
 
         self._writer.writeheader()
