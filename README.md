@@ -39,5 +39,15 @@ $ python script.py < urls.csv > result.csv
 - **export** *TextIO* `sys.stdout`: the the stream of the csv target, stdout by default.
 - **keep_old_header** *boolean* `False`: whether the source fieldnames must be explicitly declared for new rows.
 
+## log
 
+Print to `stderr`.
+
+### Usage
+
+```python
+from glutils import log
+
+log("Hello world")
+```
 
